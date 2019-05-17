@@ -4,30 +4,27 @@ defmodule StackoverflowCloneF.Controller.Question.Create do
   alias StackoverflowCloneF.Dodai, as: SD
   alias StackoverflowCloneF.Error
   alias StackoverflowCloneF.Controller.Question
+  alias StackoverflowCloneF.Controller.Book.Helper
 
   plug StackoverflowCloneF.Plug.FetchMe, :fetch, []
 
 
-  defmodule TitleCroma do
-    defmodule TitleString do
-      use Croma.SubtypeOfString, pattern: ~r/^.{1,100}$/ #
-    end
+  defmodule QuestionCroma do
     use Croma.Struct, fields: [
-      title: TitleString, # foo fieldとしてThreeNumberStrであることを宣言
-      body: Croma.String,  # bar fieldがinteger型として宣言
+      title: Helper.Params.Title,
+      body: Croma.String,
     ]
   end
 
 
   def create(conn) do
-    #user_credential = conn.request.headers["authorization"]
 
     validate(conn, fn (title, body) ->
 
       user_id = conn.assigns.me["_id"]
 
       data = %{
-        "user_id"           => user_id,# login userの`_id`(この`question`の投稿者の`_id`)
+        "user_id"           => user_id,               # login userの`_id`(この`question`の投稿者の`_id`)
         "title"             => title,                 # userが指定した値
         "body"              => body,                  # userが指定した値
         "like_voter_ids"    => [],                    # 最初は必ず空配列
@@ -53,15 +50,15 @@ defmodule StackoverflowCloneF.Controller.Question.Create do
         %Dodai.AuthenticationError{} -> ErrorJson.json_by_error(conn, Error.BadRequestError.new())
         _ -> ErrorJson.json_by_error(conn, Error.BadRequestError.new())
       end
-    end
-    )
+
+    end)
 
   end
 
 
   def validate(conn, f) do
-    case TitleCroma.new(conn.request.body) do
-      {:ok, %TitleCroma{title: title, body: body}} -> f.(title, body)
+    case QuestionCroma.new(conn.request.body) do
+      {:ok, %QuestionCroma{title: title, body: body}} -> f.(title, body)
       _ -> ErrorJson.json_by_error(conn, Error.BadRequestError.new())
     end
   end
