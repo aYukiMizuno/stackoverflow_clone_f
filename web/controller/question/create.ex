@@ -24,8 +24,10 @@ defmodule StackoverflowCloneF.Controller.Question.Create do
 
     validate(conn, fn (title, body) ->
 
+      user_id = conn.assigns.me["_id"]
+
       data = %{
-        "user_id"           => conn.assigns.me["_id"],# login userの`_id`(この`question`の投稿者の`_id`)
+        "user_id"           => user_id,# login userの`_id`(この`question`の投稿者の`_id`)
         "title"             => title,                 # userが指定した値
         "body"              => body,                  # userが指定した値
         "like_voter_ids"    => [],                    # 最初は必ず空配列
@@ -37,7 +39,7 @@ defmodule StackoverflowCloneF.Controller.Question.Create do
         SD.default_group_id(),
         "Question",
         SD.root_key(),
-        %Dodai.CreateDedicatedDataEntityRequestBody{data: data}
+        %Dodai.CreateDedicatedDataEntityRequestBody{data: data, owner: user_id}
         )
 
       res = Sazabi.G2gClient.send(
