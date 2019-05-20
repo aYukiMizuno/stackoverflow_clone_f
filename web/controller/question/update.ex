@@ -4,9 +4,9 @@ defmodule StackoverflowCloneF.Controller.Question.Update do
   plug StackoverflowCloneF.Plug.FetchMe, :fetch, []
 
   # created by niulong - 2019-05-17
-  def update(%Antikythera.Conn{
+  def update(%Conn{
     assigns: %{me: %{"_id" => user_id}},
-    request: %Antikythera.Request{path_matches: %{id: id}}} = conn) do
+    request: %Request{path_matches: %{id: id}}} = conn) do
 
     # 指定されたidをもつquestionを取得する
     with_question(conn, fn question ->
@@ -15,13 +15,15 @@ defmodule StackoverflowCloneF.Controller.Question.Update do
         # 一致した場合 更新処理
 
         ## タイトルとボディーな中身を確認する
-
         # 1. dodaiに対してrequestするrequest bodyを作成する
+
         res_body = %{
           "title"=> conn.request.body["title"],
           "body"=> conn.request.body["body"],
         }
-        req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => res_body}}
+        # drop nil value in res_body
+        set_data = res_body |> Map.delete(:__struct__) |> Enum.filter(fn {_, v} -> v end) |> Enum.into(%{})
+        req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => set_data}}
 
         # 2. dodaiに対してrequestするためのstructを作る
         req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), "Question", id, SD.root_key(), req_body)
