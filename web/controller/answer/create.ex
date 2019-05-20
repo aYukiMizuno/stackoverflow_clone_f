@@ -4,14 +4,17 @@ defmodule StackoverflowCloneF.Controller.Answer.Create do
   alias StackoverflowCloneF.Dodai, as: SD
   alias StackoverflowCloneF.Error
   alias StackoverflowCloneF.Controller.Question
-  # alias StackoverflowCloneF.Controller.Book.Helper
+  alias StackoverflowCloneF.Controller.Answer.Helper
 
   plug StackoverflowCloneF.Plug.FetchMe, :fetch, []
 
 
   defmodule CommentCroma do
+    defmodule Title do
+      use Croma.SubtypeOfString, pattern: ~r/\A.{1,100}\z/u
+    end
     use Croma.Struct, fields: [
-      body: Croma.String,
+      body: Helper.Params.Body,
       question_id: Croma.String,
     ]
   end
