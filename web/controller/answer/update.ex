@@ -3,13 +3,13 @@ defmodule StackoverflowCloneF.Controller.Answer.Update do
   alias StackoverflowCloneF.Dodai, as: SD
   alias StackoverflowCloneF.Error
   alias StackoverflowCloneF.Controller.Question
-  # alias StackoverflowCloneF.Controller.Book.Helper
+  alias StackoverflowCloneF.Controller.Answer.Helper
 
   plug StackoverflowCloneF.Plug.FetchMe, :fetch, []
 
   defmodule CommentCroma do
     use Croma.Struct, fields: [
-      body: Croma.String
+      body: Helper.Params.Body
     ]
   end
 
