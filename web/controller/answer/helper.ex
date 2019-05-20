@@ -1,20 +1,14 @@
 use Croma
 
-defmodule StackoverflowCloneF.Controller.Question.Helper do
-  use StackoverflowCloneF.Controller.Application
-
+defmodule StackoverflowCloneF.Controller.Answer.Helper do
   defmodule Params do
-    defmodule Title do
-      # タイトルは1文字以上100文字以内。
-      use Croma.SubtypeOfString, pattern: ~r/\A.{1,100}\z/u
-    end
     defmodule Body do
-      # 本文は1文字以上3000文字以内。
+      # answerの本文は1文字以上3000文字以内。
       use Croma.SubtypeOfString, pattern: ~r/\A.{1,3000}\z/u
     end
   end
 
-  @collection_name "Question"
+  @collection_name "Answer"
 
   defun collection_name() :: String.t do
     @collection_name
