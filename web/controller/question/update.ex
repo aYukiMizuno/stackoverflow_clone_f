@@ -7,7 +7,7 @@ defmodule StackoverflowCloneF.Controller.Question.Update do
   def update(%Antikythera.Conn{
     assigns: %{me: %{"_id" => user_id}},
     request: %Antikythera.Request{path_matches: %{id: id}}} = conn) do
-    
+
     # 指定されたidをもつquestionを取得する
     with_question(conn, fn question ->
       # questionのuser_idとログインユーザの_idが一致するか確認
@@ -22,21 +22,22 @@ defmodule StackoverflowCloneF.Controller.Question.Update do
           "body"=> conn.request.body["body"],
         }
         req_body = %Dodai.UpdateDedicatedDataEntityRequestBody{data: %{"$set" => res_body}}
-        
-        # 2. dodaiに対してrequestするためのstructを作る        
+
+        # 2. dodaiに対してrequestするためのstructを作る
         req = Dodai.UpdateDedicatedDataEntityRequest.new(SD.default_group_id(), "Question", id, SD.root_key(), req_body)
-        
+
         ### 3. クライアントにレスポンスを返す(dodaiのresponse bodyがいつもと違うことに注意)
         res = Sazabi.G2gClient.send(conn.context, SD.app_id(), req)
-        res_body = %{
-          data: res.body["data"]
-        }
-        Conn.json(conn, 200, res_body)
+        case res do
+          %Dodai.UpdateDedicatedDataEntitySuccess{body: body} -> Conn.json(conn, 200, body["data"])
+          _ -> ErrorJson.json_by_error(conn, StackoverflowCloneF.Error.ResourceNotFoundError.new())
+        end
+
       else
         ## 一致しない場合、下記のようにエラーを返す
         ErrorJson.json_by_error(conn, StackoverflowCloneF.Error.CredentialError.new())
       end
-      
+
     end)
   end
 
