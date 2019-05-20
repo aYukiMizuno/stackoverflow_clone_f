@@ -15,11 +15,8 @@ defmodule StackoverflowCloneF.Controller.Answer.Index do
   alias StackoverflowCloneF.Error.BadRequestError
   alias StackoverflowCloneF.Controller.Answer.{Helper, IndexRequestParams}
 
-  # def index(conn)do
-  #   IO.inspect conn
-  # end
   defun index(%Conn{request: %Request{query_params: query_params}, context: context} = conn :: v[Conn.t]) :: Conn.t do
-    IO.inspect conn
+    
     case IndexRequestParams.new(query_params) do
       {:error, _}      ->
         ErrorJson.json_by_error(conn, BadRequestError.new())

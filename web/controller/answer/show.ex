@@ -8,7 +8,6 @@ defmodule StackoverflowCloneF.Controller.Answer.Show do
 
   defun show(%Antikythera.Conn{request: %Antikythera.Request{path_matches: %{id: id}}, context: context} = conn) :: Conn.t do
 
-    IO.inspect conn
     req = Dodai.RetrieveDedicatedDataEntityRequest.new(SD.default_group_id(), "Answer", id, SD.root_key())
 
     res = Sazabi.G2gClient.send(context, SD.app_id(), req)
