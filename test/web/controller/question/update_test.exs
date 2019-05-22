@@ -14,7 +14,7 @@ defmodule StackoverflowCloneF.Controller.Question.UpdateTest do
       case req do
         %Dodai.RetrieveDedicatedDataEntityRequest{} = retrieve_req ->
           # retrieve_reqについて必要に応じてassertする
-          assert retrieve_req.id == "question_id"
+          assert retrieve_req.id == QuestionData.dodai["_id"]
           %Dodai.RetrieveDedicatedDataEntitySuccess{body: StackoverflowCloneF.TestData.QuestionData.dodai()}
 
         %Dodai.UpdateDedicatedDataEntityRequest{}   = update_req   ->
