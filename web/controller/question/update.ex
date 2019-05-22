@@ -1,6 +1,7 @@
 defmodule StackoverflowCloneF.Controller.Question.Update do
   use StackoverflowCloneF.Controller.Application
   alias StackoverflowCloneF.Dodai, as: SD
+  alias StackoverflowCloneF.Controller.Question.Helper
   plug StackoverflowCloneF.Plug.FetchMe, :fetch, []
 
   # created by niulong - 2019-05-17
@@ -30,8 +31,9 @@ defmodule StackoverflowCloneF.Controller.Question.Update do
 
         ### 3. クライアントにレスポンスを返す(dodaiのresponse bodyがいつもと違うことに注意)
         res = Sazabi.G2gClient.send(conn.context, SD.app_id(), req)
+        # IO.inspect res
         case res do
-          %Dodai.UpdateDedicatedDataEntitySuccess{body: body} -> Conn.json(conn, 200, body["data"])
+          %Dodai.UpdateDedicatedDataEntitySuccess{body: body} -> Conn.json(conn, 200, Helper.to_response_body(body))
           _ -> ErrorJson.json_by_error(conn, StackoverflowCloneF.Error.ResourceNotFoundError.new())
         end
 
