@@ -29,6 +29,8 @@ defmodule StackoverflowCloneF.Router do
 
   post "/v1/question/:id/vote/like_vote",    Vote.Create, :create
   post "/v1/question/:id/vote/dislike_vote", Vote.Create, :create
+  #post "/v1/answer/:id/vote/like_vote",    Vote.Create, :create # 未検証
+  #post "/v1/answer/:id/vote/dislike_vote", Vote.Create, :create
 
   post "/v1/book",     Book.Create, :create
   put  "/v1/book/:id", Book.Update, :update
