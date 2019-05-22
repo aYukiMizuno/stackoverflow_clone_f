@@ -6,7 +6,6 @@ defmodule StackoverflowCloneF.Controller.Question.Index do
   def index(conn) do
     query = case conn.request.query_params do
       %{"user_id" => user_id} ->
-        IO.inspect user_id
         %Dodai.RetrieveDedicatedDataEntityListRequestQuery{
           query: %{"owner" => user_id},
           sort:  %{"_id" => 1},
