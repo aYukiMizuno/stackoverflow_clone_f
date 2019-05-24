@@ -1,6 +1,11 @@
 <template>
   <div>
-    !not_implemented!
+    <h2 class="page-title">
+      {{ question.title }}
+    </h2>
+    <p class="body">
+      {{ question.body }}
+    </p>
   </div>
 </template>
 
@@ -11,6 +16,12 @@ export default {
   name: 'Question',
   components: {
     Comment,
+  },
+  props: {
+    question: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>
