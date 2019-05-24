@@ -1,6 +1,12 @@
 <template>
   <div>
-    !not_implemented!
+    <div v-if="hasValidQuestion">
+      <question :question="question" />
+      <hr>
+      <router-link :to="{ name: 'QuestionListPage'}">
+        一覧に戻る
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -19,10 +25,20 @@ export default {
     };
   },
   computed: {
+    hasValidQuestion() {
+      return !(Object.keys(this.question).length === 0) && this.question.id === this.$route.params.id;
+    },
+    question() {
+      return this.$store.state.question;
+    },
   },
   mounted() {
+    this.retrieveQuestion();
   },
   methods: {
+    retrieveQuestion() {
+      this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id });
+    },
   },
 };
 </script>

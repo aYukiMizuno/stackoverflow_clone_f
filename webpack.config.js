@@ -53,7 +53,7 @@ module.exports = {
   devServer: {
     allowedHosts: [
       'localhost',
-      'stackoverflow-clone.localhost',
+      'stackoverflow-clone-f.localhost',
     ],
     port: 8082,
     publicPath: '/priv/static',
