@@ -12,11 +12,11 @@
         <input
           id="form-title"
           v-model="title"
-          :maxlength="titleMaxLength"
+          maxlength="100"
           class="title-edit form-control"
           type="text"
           minlength="1"
-          required 
+          required
         >
       </div>
       <div class="form-group">
@@ -26,7 +26,7 @@
           v-model="body"
           class="body-edit form-control"
           minlength="1"
-          maxlength="1000"
+          maxlength="3000"
           required
         />
       </div>
