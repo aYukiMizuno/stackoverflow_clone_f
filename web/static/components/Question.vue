@@ -6,6 +6,13 @@
     <p class="body">
       {{ question.body }}
     </p>
+    <div
+      v-for="comment in question.comments"
+      :key="comment.id"
+      class="comments"
+    >
+      <comment :comment="comment" />
+    </div>
   </div>
 </template>
 

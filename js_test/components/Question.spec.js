@@ -34,7 +34,7 @@ describe('Question', function () {
     });
   });
 
-  it('', () => {
+  it('renders answer body and comment components', () => {
     const wrapper = shallowMount(Question, {
       store,
       router,
@@ -42,5 +42,6 @@ describe('Question', function () {
     });
     assert(wrapper.find('.page-title').text().includes(question.title));
     assert(wrapper.find('.body').text().includes(question.body));
+    assert(wrapper.contains('.comments'));
   });
 });
