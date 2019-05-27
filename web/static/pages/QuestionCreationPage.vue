@@ -12,12 +12,17 @@
         <input
           id="form-title"
           v-model="title"
-          :maxlength="titleMaxLength"
           class="title-edit form-control"
           type="text"
           minlength="1"
+          :maxlength="titleMaxLength"
           required 
         >
+        <small
+          id="form-titlecounter"
+          class="form-text text-muted text-right">
+          {{title.length}}/{{titleMaxLength}}
+        </small>
       </div>
       <div class="form-group">
         <label for="form-body">内容</label>
@@ -26,9 +31,14 @@
           v-model="body"
           class="body-edit form-control"
           minlength="1"
-          maxlength="1000"
+          :maxlength="bodyMaxLength"
           required
         />
+        <small
+          id="form-bodycounter"
+          class="form-text text-muted text-right">
+          {{this.body.length}}/{{bodyMaxLength}}
+        </small>
       </div>
       <div class="form-group">
         <button
