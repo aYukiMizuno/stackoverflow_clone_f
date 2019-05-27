@@ -1,7 +1,10 @@
 <template>
   <div>
     <div v-if="hasValidQuestion">
-      <question :question="question" />
+      <question 
+        :question="question" 
+        class="book"
+        @update="updateQuestion"/>
       <hr>
       <router-link :to="{ name: 'QuestionListPage'}">
         一覧に戻る
@@ -38,6 +41,9 @@ export default {
   methods: {
     retrieveQuestion() {
       this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id });
+    },
+    updateQuestion({title, body}){
+      this.$store.dispatch('updateQuestion',{id: this.$route.params.id, title, body});
     },
   },
 };
