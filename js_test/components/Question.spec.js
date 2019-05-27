@@ -44,4 +44,13 @@ describe('Question', function () {
     assert(wrapper.find('.body').text().includes(question.body));
     assert(wrapper.contains('.comments'));
   });
+
+  it('renders comment form', () => {
+    const wrapper = shallowMount(Question, {
+      store,
+      router,
+      propsData: { question },
+    });
+    assert(wrapper.contains('#form-commentQuestionInput'));
+  });
 });
