@@ -1,7 +1,7 @@
 <template>
   <div>
-      <div class="content-area">
-        <div v-if="editing">
+    <div class="content-area">
+      <div v-if="editing">
         <div class="form-group">
           <label for="form-title">タイトル</label>
           <input
@@ -70,9 +70,11 @@
             </button>
           </span>
         </div>
+        <div>
+          <vote :document="question" />
+        </div>
       </div>
     </div>
-    
     <div
       v-for="comment in question.comments"
       :key="comment.id"
@@ -108,6 +110,7 @@
 
 <script>
 import Comment from '@/components/Comment';
+import Vote from '@/components/Vote';
 
 export default {
   name: 'Question',
@@ -121,6 +124,7 @@ export default {
   },
   components: {
     Comment,
+    Vote,
   },
   methods:{
     startEdit(){
