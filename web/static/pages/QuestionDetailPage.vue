@@ -3,7 +3,7 @@
     <div v-if="hasValidQuestion">
       <question 
         :question="question" 
-        class="book"
+        class="question"
         @update="updateQuestion"/>
       <hr>
       <router-link :to="{ name: 'QuestionListPage'}">

@@ -1,25 +1,25 @@
 <template>
   <div>
-    <div v-if="editing">
-      <div class="form-group">
-        <label for="form-title">タイトル</label>
-        <input
-          id="form-title"
-          v-model="editingTitle"
-          maxlength="100"
-          minlength="1"
-          class="title-edit form-control"
-          type="text"
-          required
-        >
+      <div class="content-area">
+        <div v-if="editing">
+        <div class="form-group">
+          <label for="form-title">タイトル</label>
+          <input
+            id="form-title"
+            v-model="editingTitle"
+            maxlength="100"
+            minlength="1"
+            class="title-edit form-control"
+            type="text"
+            required
+          >
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <h2 class="page-title"> <!-- TODO: デザインをなんとかする -->
-        {{ question.title }}
-      </h2>
-    </div>
-    <div class="content-area">
+      <div v-else>
+        <h2 class="page-title"> <!-- TODO: デザインをなんとかする -->
+          {{ question.title }}
+        </h2>
+      </div>
       <div v-if="editing">
         <form
           class="question-form"
@@ -41,6 +41,7 @@
                 <button
                   class="btn btn-primary mb-2"
                   type="submit"
+                  @click.prevent="submit_updatequestion"
                 >
                   保存
                 </button>
@@ -132,6 +133,10 @@ export default {
     },
     update(){
       this.$emit('update',{title:editingTitle, body: this.editingBody});
+      this.editing = false;
+    },
+    submit_updatequestion(){
+      this.$store.dispatch('updateQuestion',{id: this.$route.params.id, title: this.editingTitle, body: this.editingBody});
       this.editing = false;
     },
     submit_postComment(){
