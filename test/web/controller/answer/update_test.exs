@@ -1,6 +1,7 @@
 defmodule StackoverflowCloneF.Controller.Answer.UpdateTest do
   use StackoverflowCloneF.CommonCase
   alias StackoverflowCloneF.TestData.QuestionData
+  alias StackoverflowCloneF.TestData.AnswerData
 
   @api_prefix "/v1/answer/answer_id"
 
@@ -8,45 +9,28 @@ defmodule StackoverflowCloneF.Controller.Answer.UpdateTest do
     "authorization" => "user_credential"
   }
 
-  @dodai %{
-    "_id" => "answer_id",
-    "createdAt" => "2019-05-17T07:16:13+00:00",
-    "data" => %{
-      "body" => "body",
-      "comments" => [],
-      "question_id" => "question_id",
-      "user_id" => "user_id"
-    },
-    "owner" => "user_id",
-    "sections" => [],
-    "updatedAt" => "2019-05-17T07:16:13+00:00",
-    "version" => 0
-  }
-
-  @gear Map.merge(@dodai["data"], %{"id" => @dodai["_id"], "created_at" => @dodai["createdAt"]})
-
   test "update/1 " <> "success" do
     mock_fetch_me_plug(%{"_id" => "user_id"})
 
     :meck.expect(Sazabi.G2gClient, :send, fn(_, _, req) ->
       case req do
         %Dodai.RetrieveDedicatedDataEntityRequest{} ->
-          %Dodai.RetrieveDedicatedDataEntitySuccess{body: @dodai}
+          %Dodai.RetrieveDedicatedDataEntitySuccess{body: AnswerData.dodai()}
 
         %Dodai.UpdateDedicatedDataEntityRequest{} ->
-          %Dodai.UpdateDedicatedDataEntitySuccess{body: @dodai}
+          %Dodai.UpdateDedicatedDataEntitySuccess{body: AnswerData.dodai()}
       end
     end)
 
     body = %{
-      "question_id" => @dodai["data"]["question_id"],
-      "body"        => @dodai["data"]["body"],
+      "question_id" => AnswerData.dodai()["data"]["question_id"],
+      "body"        => AnswerData.dodai()["data"]["body"],
     }
 
     res = Req.put_json(@api_prefix, body, @header)
 
     assert res.status               == 200
-    assert Poison.decode!(res.body) == @gear
+    assert Poison.decode!(res.body) == AnswerData.gear()
   end
 
 
@@ -59,12 +43,12 @@ defmodule StackoverflowCloneF.Controller.Answer.UpdateTest do
           %Dodai.RetrieveDedicatedDataEntitySuccess{body: QuestionData.dodai()}
 
         %Dodai.UpdateDedicatedDataEntityRequest{} ->
-          %Dodai.UpdateDedicatedDataEntitySuccess{body: @dodai}
+          %Dodai.UpdateDedicatedDataEntitySuccess{body: AnswerData.dodai()}
       end
     end)
 
     body = %{
-      "question_id" => @dodai["data"]["question_id"],
+      "question_id" => AnswerData.dodai()["data"]["question_id"],
       "body"        => "",
     }
 
@@ -83,12 +67,12 @@ defmodule StackoverflowCloneF.Controller.Answer.UpdateTest do
           %Dodai.RetrieveDedicatedDataEntitySuccess{body: QuestionData.dodai()}
 
         %Dodai.UpdateDedicatedDataEntityRequest{} ->
-          %Dodai.UpdateDedicatedDataEntitySuccess{body: @dodai}
+          %Dodai.UpdateDedicatedDataEntitySuccess{body: AnswerData.dodai()}
       end
     end)
 
     body = %{
-      "question_id" => @dodai["data"]["question_id"],
+      "question_id" => AnswerData.dodai()["data"]["question_id"],
       "body"        => String.duplicate("a", 3001),
     }
 

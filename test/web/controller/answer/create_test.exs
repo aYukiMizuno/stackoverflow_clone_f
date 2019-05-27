@@ -1,29 +1,13 @@
 defmodule StackoverflowCloneF.Controller.Answer.CreateTest do
   use StackoverflowCloneF.CommonCase
   alias StackoverflowCloneF.TestData.QuestionData
+  alias StackoverflowCloneF.TestData.AnswerData
 
   @api_prefix "/v1/answer"
 
   @header %{
     "authorization" => "user_credential"
   }
-
-  @dodai %{
-    "_id" => "5cde5fbde515145ec918ade2",
-    "createdAt" => "2019-05-17T07:16:13+00:00",
-    "data" => %{
-      "body" => "body",
-      "comments" => [],
-      "question_id" => "question_id",
-      "user_id" => "user_id"
-    },
-    "owner" => "user_id",
-    "sections" => [],
-    "updatedAt" => "2019-05-17T07:16:13+00:00",
-    "version" => 0
-  }
-
-  @gear Map.merge(@dodai["data"], %{"id" => @dodai["_id"], "created_at" => @dodai["createdAt"]})
 
   test "create/1 " <> "success" do
     mock_fetch_me_plug(%{"_id" => "user_id"})
@@ -34,19 +18,19 @@ defmodule StackoverflowCloneF.Controller.Answer.CreateTest do
           %Dodai.RetrieveDedicatedDataEntitySuccess{body: QuestionData.dodai()}
 
         %Dodai.CreateDedicatedDataEntityRequest{} ->
-          %Dodai.CreateDedicatedDataEntitySuccess{body: @dodai}
+          %Dodai.CreateDedicatedDataEntitySuccess{body: AnswerData.dodai()}
       end
     end)
 
     body = %{
-      "question_id" => @dodai["data"]["question_id"],
-      "body"        => @dodai["data"]["body"],
+      "question_id" => AnswerData.dodai()["data"]["question_id"],
+      "body"        => AnswerData.dodai()["data"]["body"],
     }
 
     res = Req.post_json(@api_prefix, body, @header)
 
     assert res.status               == 200
-    assert Poison.decode!(res.body) == @gear
+    assert Poison.decode!(res.body) == AnswerData.gear()
   end
 
 
@@ -59,13 +43,13 @@ defmodule StackoverflowCloneF.Controller.Answer.CreateTest do
           %Dodai.ResourceNotFound{}
 
         %Dodai.CreateDedicatedDataEntityRequest{} ->
-          %Dodai.CreateDedicatedDataEntitySuccess{body: @dodai}
+          %Dodai.CreateDedicatedDataEntitySuccess{body: AnswerData.dodai()}
       end
     end)
 
     body = %{
-      "question_id" => @dodai["data"]["question_id"],
-      "body"        => @dodai["data"]["body"],
+      "question_id" => AnswerData.dodai()["data"]["question_id"] <> "000",
+      "body"        => AnswerData.dodai()["data"]["body"],
     }
 
     res = Req.post_json(@api_prefix, body, @header)
@@ -83,12 +67,12 @@ defmodule StackoverflowCloneF.Controller.Answer.CreateTest do
           %Dodai.RetrieveDedicatedDataEntitySuccess{body: QuestionData.dodai()}
 
         %Dodai.CreateDedicatedDataEntityRequest{} ->
-          %Dodai.CreateDedicatedDataEntitySuccess{body: @dodai}
+          %Dodai.CreateDedicatedDataEntitySuccess{body: AnswerData.dodai()}
       end
     end)
 
     body = %{
-      "question_id" => @dodai["data"]["question_id"],
+      "question_id" => AnswerData.dodai()["data"]["question_id"],
       "body"        => "",
     }
 
@@ -107,12 +91,12 @@ defmodule StackoverflowCloneF.Controller.Answer.CreateTest do
           %Dodai.RetrieveDedicatedDataEntitySuccess{body: QuestionData.dodai()}
 
         %Dodai.CreateDedicatedDataEntityRequest{} ->
-          %Dodai.CreateDedicatedDataEntitySuccess{body: @dodai}
+          %Dodai.CreateDedicatedDataEntitySuccess{body: AnswerData.dodai()}
       end
     end)
 
     body = %{
-      "question_id" => @dodai["data"]["question_id"],
+      "question_id" => AnswerData.dodai()["data"]["question_id"],
       "body"        => String.duplicate("a", 3001),
     }
 
