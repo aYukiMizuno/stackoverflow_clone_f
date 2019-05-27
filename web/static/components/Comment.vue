@@ -82,11 +82,11 @@ export default {
     },
     submit_upqueComment(){
       this.$store.dispatch('updateQuestionComment',{
-        questionId: this.$route.params.document_id, 
-        id: this.$route.params.comment_id,
+        questionId: this.$route.params.id, 
+        id: this.comment.id,
         body: this.editingQCBody});
 
-        // console.log(this.$route)
+        console.log(this.$route)
         this.editingQC = false;
     },
 
