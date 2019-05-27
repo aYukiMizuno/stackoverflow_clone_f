@@ -1,11 +1,16 @@
 <template>
   <div>
-    <h2 class="page-title"> <!-- TODO: デザインをなんとかする -->
-      {{ question.title }}
-    </h2>
-    <p class="body">
-      {{ question.body }}
-    </p>
+    <div>
+      <h2 class="page-title"> <!-- TODO: デザインをなんとかする -->
+        {{ question.title }}
+      </h2>
+      <p class="body">
+        {{ question.body }}
+      </p>
+    </div>
+    <div>
+      <vote :document="question" />
+    </div>
     <div
       v-for="comment in question.comments"
       :key="comment.id"
@@ -41,6 +46,7 @@
 
 <script>
 import Comment from '@/components/Comment';
+import Vote from '@/components/Vote';
 
 export default {
   name: 'Question',
@@ -51,6 +57,7 @@ export default {
   },
   components: {
     Comment,
+    Vote,
   },
   methods:{
     submit_postComment(){
