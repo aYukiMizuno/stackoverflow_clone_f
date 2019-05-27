@@ -15,15 +15,15 @@
     </div>
     <div>
       <form
-        class="form-group"
         @submit.prevent="submit_postComment"
       >
 
         <div class="form-group">
-          <label for="exampleInputEmail1">コメント</label>
+          <label for="form-commentQuestionInput">コメント</label>
 
           <input
             class="form-control"
+            id="form-commentQuestionInput"
             v-model="bodyOfComment"
             placeholder="コメント欄"
             type="text"
