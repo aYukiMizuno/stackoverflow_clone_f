@@ -80,7 +80,7 @@
       :key="comment.id"
       class="comments"
     >
-      <comment :comment="comment" />
+      <comment :comment="comment" :documentname = "'question'" />
     </div>
     <div>
       <form
