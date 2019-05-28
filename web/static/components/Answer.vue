@@ -76,6 +76,20 @@ export default {
     Comment,
   },
 
+  computed:{
+
+    owned(){
+      return true;
+    }
+  },
+
+  props: {
+    answer: {
+      type: Object,
+      required: true,
+    },
+  },
+
   methods:{
     startEdit(){
       this.editing = true;
@@ -92,24 +106,7 @@ export default {
       }).then(()=>{
         this.editing = false;
       });
-    }
-  },
-
-  computed:{
-
-    owned(){
-      return true;
-    }
-  },
-
-  props: {
-    answer: {
-      type: Object,
-      required: true,
     },
-  },
-
-  methods:{
     submit_anComment(){
       console.log(this.answer);
       this.$store.dispatch('createAnswerComment',{
