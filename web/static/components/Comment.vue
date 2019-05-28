@@ -71,6 +71,10 @@ export default {
       type: Object,
       required: true,
     },
+    documentname:{
+      type: String,
+      required: true,
+    }
   },
   methods:{
     startQCEdit(){
@@ -81,11 +85,21 @@ export default {
       this.editingQC = false;
     },
     submit_upqueComment(){
-      this.$store.dispatch('updateQuestionComment',{
+      
+      if(this.documentname=='question'){
+        this.$store.dispatch('updateQuestionComment',{
         questionId: this.$route.params.id, 
         id: this.comment.id,
         body: this.editingQCBody});
-        this.editingQC = false;
+      }else{
+        this.$store.dispatch('updateAnswerComment',{
+        questionId: this.$route.params.id, 
+        answerId: this.$parent.answer.id,
+        id: this.comment.id,
+        body: this.editingQCBody});   
+      };
+        
+      this.editingQC = false;
     },
 
   },

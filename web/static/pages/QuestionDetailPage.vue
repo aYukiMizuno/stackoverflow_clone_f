@@ -70,7 +70,7 @@ export default {
       this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id });
     },
     retrieveAnswers() {
-      this.$store.dispatch('retrieveAnswers', { questionId: this.question.id });
+      this.$store.dispatch('retrieveAnswers', { questionId: this.$route.params.id });
     },
     updateQuestion({title, body}){
       this.$store.dispatch('updateQuestion',{id: this.$route.params.id, title, body});
