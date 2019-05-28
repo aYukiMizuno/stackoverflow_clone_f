@@ -5,7 +5,29 @@
         :question="question" 
         class="question"
         @update="updateQuestion"/>
+
       <hr>
+      
+      <div v-for="answer in answers" :key="answer.id">
+        <answer :answer="answer" />
+      </div>
+
+      <hr>
+
+      <div>
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">回答を投稿する</h3>
+            <form class="form-group" @submit.prevent="postAnswer">
+              <textarea class="form-control" rows="5" v-model="bodyPostAnswer"></textarea>
+              <input class="btn btn-primary text-right" type="submit" />
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
       <router-link :to="{ name: 'QuestionListPage'}">
         一覧に戻る
       </router-link>
@@ -25,6 +47,7 @@ export default {
   },
   data() {
     return {
+      bodyPostAnswer: ''
     };
   },
   computed: {
@@ -34,16 +57,26 @@ export default {
     question() {
       return this.$store.state.question;
     },
+    answers() {
+      return this.$store.state.answers;
+    }
   },
   mounted() {
     this.retrieveQuestion();
+    this.retrieveAnswers();
   },
   methods: {
     retrieveQuestion() {
       this.$store.dispatch('retrieveQuestion', { id: this.$route.params.id });
     },
+    retrieveAnswers() {
+      this.$store.dispatch('retrieveAnswers', { questionId: this.question.id });
+    },
     updateQuestion({title, body}){
       this.$store.dispatch('updateQuestion',{id: this.$route.params.id, title, body});
+    },
+    postAnswer(){
+      this.$store.dispatch('createAnswer',{questionId: this.question.id, body: this.bodyPostAnswer});
     },
   },
 };
