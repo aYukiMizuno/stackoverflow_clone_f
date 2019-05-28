@@ -1,55 +1,67 @@
 <template>
-  <div class="comment">
-    <div v-if="editingQC">
-      <div class="form-comment-group">
-        <form
-          class="question-comment-form"
+  <div class="comment container">
+    <div class="card">
+      <div class="card-body">
+        <div
+          v-if="!editingQC"
+          class=""
         >
-          <label for="form-comment-group">コメント</label>
+          <div class="card-text">
+            {{ comment.body }}
+          </div>
+        </div>
+        <div
+          v-else
+          class=""
+        >
           <input
             id="form-comment-body"
             v-model="editingQCBody"
-            class="comment-body-edit form-control"
+            class="comment-body-edit form-control form-control-sm"
             maxlength="1000"
             minlength="1"
             type="text"
             required
           >
-          <div class="form-comment-group">
+        </div>
+        <div class="">
+          <div class="float-left">
+            <small class="text-muted">{{ comment.userId }} さん / {{ comment.createdAt }}</small>
+          </div>
+          <div
+            v-if="own && !editingQC"
+            class="float-right"
+          >
             <button
-              class="btn btn-primary mb-2"
+              type="button"
+              class="qc-edit-button btn btn-outline-primary btn-sm"
+              @click.prevent="startQCEdit"
+            >
+              更新
+            </button>
+          </div>
+          <div
+            v-else-if="own"
+            class="float-right"
+          >
+            <button
+              class="btn btn-primary btn-sm"
               type="submit"
               @click.prevent="submit_upqueComment"
             >
               保存
             </button>
             <button
-              class="cancel-edit-button btn btn-outline-primary mb-2"
+              class="btn btn-outline-primary btn-sm"
               type="submit"
               @click.prevent="cancelQCEdit"
             >
-              キャンセル
+              取消
             </button>
           </div>
-        </form>
+          <div class="float:none;" />
+        </div>
       </div>
-    </div>
-    <div v-else>
-      <div class="comment-user">
-        {{ comment.userId }} さん
-      </div>
-      <p class="comment-body">
-        {{ comment.body }}
-      </p>
-      <span v-if="!editingQC">
-        <button
-          type="button"
-          class="qc-edit-button btn btn-link"
-          @click.prevent="startQCEdit"
-        >
-          コメント更新
-        </button>
-      </span>
     </div>
   </div>
 </template>
@@ -72,6 +84,11 @@ export default {
       editingQC: false,
       editingQCBody: '',
     };
+  },
+  computed: {
+    own() {
+      return this.$store.state.id === this.comment.userId;
+    },
   },
   methods: {
     startQCEdit() {
@@ -106,4 +123,7 @@ export default {
 </script>
 
 <style scoped>
+.comment{
+  margin-bottom: 20px;
+}
 </style>
