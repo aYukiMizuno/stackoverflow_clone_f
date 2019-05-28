@@ -22,26 +22,28 @@
               </small>
             </div>
             <div
-              v-if="owned"
+              v-if="own && !editing"
               class="float-right"
             >
               <button
-                v-if="!editing"
-                class="btn btn-sm btn-info"
+                class="btn btn-sm btn-outline-primary"
                 @click="startEdit()"
               >
                 編集
               </button>
+            </div>
+            <div
+              v-else-if="own && editing"
+              class="float-right"
+            >
               <button
-                v-if="editing"
-                class="btn btn-sm btn-warning"
+                class="btn btn-sm btn-outline-primary"
                 @click="cancelEdit()"
               >
                 取消
               </button>
               <button
-                v-if="editing"
-                class="btn btn-sm btn-info"
+                class="btn btn-sm btn-primary"
                 @click="submitEdit()"
               >
                 更新
@@ -50,40 +52,43 @@
           </div>
         </form>
       </div>
-      <div
-        v-for="comment in answer.comments"
-        id="an-comment-list"
-        :key="comment.id"
-        class="comments"
-      >
-        <comment
-          :comment="comment"
-          :documentname="'answer'"
-        />
-      </div>
-      <div id="an-comment-submit">
+      <div class="card-footer bg-transparent">
+        <div
+          v-for="comment in answer.comments"
+          id="an-comment-list"
+          :key="comment.id"
+        >
+          <comment
+            :comment="comment"
+            :documentname="'answer'"
+          />
+        </div>
+
         <form
+          class="card container"
           @submit.prevent="submit_anComment"
         >
-          <div class="form-group">
-            <label for="form-commentAnswerInput">コメント</label>
+          <div class="card-body">
             <input
-              id="form-commentAnswerInput"
               v-model="bodyOfComment"
-              class="form-control"
-              placeholder="コメント欄"
               type="text"
+              class="form-control"
+              placeholder="コメントを投稿する"
               minlength="1"
               maxlength="1000"
               required
             >
           </div>
-          <button
-            class="btn btn-primary"
-            type="submit"
-          >
-            投稿
-          </button>
+          <div class="card-footer bg-transparent">
+            <div class="text-right">
+              <button
+                class="btn btn-primary btn-sm"
+                type="submit"
+              >
+                投稿
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -115,14 +120,14 @@ export default {
   },
 
   computed: {
-
-    owned() {
-      return true;
+    own() {
+      return this.$store.state.id === this.answer.userId;
     },
   },
 
   methods: {
     startEdit() {
+      console.log(this.answer);
       this.editing = true;
       this.editingBody = this.answer.body;
     },
