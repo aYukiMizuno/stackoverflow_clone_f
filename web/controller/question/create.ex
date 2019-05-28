@@ -4,7 +4,7 @@ defmodule StackoverflowCloneF.Controller.Question.Create do
   alias StackoverflowCloneF.Dodai, as: SD
   alias StackoverflowCloneF.Error
   alias StackoverflowCloneF.Controller.Question
-  alias StackoverflowCloneF.Controller.Book.Helper
+  alias StackoverflowCloneF.Controller.Question.Helper
 
   plug StackoverflowCloneF.Plug.FetchMe, :fetch, []
 
@@ -12,7 +12,7 @@ defmodule StackoverflowCloneF.Controller.Question.Create do
   defmodule QuestionCroma do
     use Croma.Struct, fields: [
       title: Helper.Params.Title,
-      body: Croma.String,
+      body: Helper.Params.Body,
     ]
   end
 
