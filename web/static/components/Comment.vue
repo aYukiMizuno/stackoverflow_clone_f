@@ -85,8 +85,6 @@ export default {
         questionId: this.$route.params.id, 
         id: this.comment.id,
         body: this.editingQCBody});
-
-        console.log(this.$route)
         this.editingQC = false;
     },
 
