@@ -150,6 +150,7 @@ export default {
       })
       .then( ()=> {
         // TODO: 
+        this.bodyOfComment = '';
       });
     }
   },
