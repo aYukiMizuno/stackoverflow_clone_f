@@ -3,22 +3,47 @@
     <div class="card">
       <div class="card-body">
         <form class="form-group">
-          <p class="card-text" style="white-space: pre-wrap;" v-if="!editing">{{ answer.body }}</p>
-          <textarea class="card-text form-control" v-else v-model="editingBody"></textarea>
+          <p
+            v-if="!editing"
+            class="card-text"
+            style="white-space: pre-wrap;"
+          >
+            {{ answer.body }}
+          </p>
+          <textarea
+            v-else
+            v-model="editingBody"
+            class="card-text form-control"
+          />
           <div class="card-text">
             <div class="float-left">
               <small class="text-muted">
                 {{ answer.userId }} さん / {{ answer.createdAt }}
               </small>
             </div>
-            <div class="float-right" v-if="owned">
-              <button class="btn btn-sm btn-info" v-if="!editing" v-on:click="startEdit()">
+            <div
+              v-if="owned"
+              class="float-right"
+            >
+              <button
+                v-if="!editing"
+                class="btn btn-sm btn-info"
+                @click="startEdit()"
+              >
                 編集
               </button>
-              <button class="btn btn-sm btn-warning" v-if="editing" v-on:click="cancelEdit()">
+              <button
+                v-if="editing"
+                class="btn btn-sm btn-warning"
+                @click="cancelEdit()"
+              >
                 取消
               </button>
-              <button class="btn btn-sm btn-info" v-if="editing" v-on:click="submitEdit()">
+              <button
+                v-if="editing"
+                class="btn btn-sm btn-info"
+                @click="submitEdit()"
+              >
                 更新
               </button>
             </div>
@@ -26,12 +51,15 @@
         </form>
       </div>
       <div
-        id="an-comment-list"
         v-for="comment in answer.comments"
+        id="an-comment-list"
         :key="comment.id"
         class="comments"
       >
-        <comment :comment="comment" :documentname = "'answer'"/>
+        <comment
+          :comment="comment"
+          :documentname="'answer'"
+        />
       </div>
       <div id="an-comment-submit">
         <form
@@ -40,20 +68,23 @@
           <div class="form-group">
             <label for="form-commentAnswerInput">コメント</label>
             <input
-              class="form-control"
               id="form-commentAnswerInput"
               v-model="bodyOfComment"
+              class="form-control"
               placeholder="コメント欄"
               type="text"
               minlength="1"
               maxlength="1000"
               required
-            />
+            >
           </div>
-          <button class="btn btn-primary" type="submit">
+          <button
+            class="btn btn-primary"
+            type="submit"
+          >
             投稿
           </button>
-        </form> 
+        </form>
       </div>
     </div>
   </div>
@@ -64,23 +95,9 @@ import Comment from '@/components/Comment';
 
 export default {
   name: 'Answer',
-  data(){
-    return {
-      editing: false,
-      editingBody: "",
-      bodyOfComment: "",
-    };
-  },
 
   components: {
     Comment,
-  },
-
-  computed:{
-
-    owned(){
-      return true;
-    }
   },
 
   props: {
@@ -89,37 +106,50 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      editing: false,
+      editingBody: '',
+      bodyOfComment: '',
+    };
+  },
 
-  methods:{
-    startEdit(){
+  computed: {
+
+    owned() {
+      return true;
+    },
+  },
+
+  methods: {
+    startEdit() {
       this.editing = true;
       this.editingBody = this.answer.body;
     },
-    cancelEdit(){
+    cancelEdit() {
       this.editing = false;
     },
-    submitEdit(){
-      this.$store.dispatch('updateAnswer',{
+    submitEdit() {
+      this.$store.dispatch('updateAnswer', {
         questionId: this.answer.questionId,
         id: this.answer.id,
-        body: this.editingBody
-      }).then(()=>{
+        body: this.editingBody,
+      }).then(() => {
         this.editing = false;
       });
     },
-    submit_anComment(){
+    submit_anComment() {
       console.log(this.answer);
-      this.$store.dispatch('createAnswerComment',{
-        questionId: this.answer.questionId, 
-        answerId: this.answer.id, 
-        body: this.bodyOfComment
+      this.$store.dispatch('createAnswerComment', {
+        questionId: this.answer.questionId,
+        answerId: this.answer.id,
+        body: this.bodyOfComment,
       })
-      .then(()=>{
-        this.bodyOfComment='';
-      });
-
+        .then(() => {
+          this.bodyOfComment = '';
+        });
     },
-  }
+  },
 };
 </script>
 

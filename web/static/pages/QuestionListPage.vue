@@ -29,12 +29,18 @@
     <div>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item"
-            v-for="i in maxPaginationIndex" :key="i"
-            v-bind:class="{ active: (i-1 === page) }">
-            <a class="page-link" href="#"
-              v-on:click="paginate(i)">
-              {{i}}
+          <li
+            v-for="i in maxPaginationIndex"
+            :key="i"
+            class="page-item"
+            :class="{ active: (i-1 === page) }"
+          >
+            <a
+              class="page-link"
+              href="#"
+              @click="paginate(i)"
+            >
+              {{ i }}
             </a>
           </li>
         </ul>
@@ -47,11 +53,11 @@
 
 export default {
   name: 'QuestionListPage',
-  data(){
+  data() {
     return {
       page: 0, // 今のページ番号 0-indexed
       perQuestions: 10, // 1ページ辺りのページ数
-    }
+    };
   },
   computed: {
     // 全ての質問データ
@@ -59,21 +65,21 @@ export default {
       return this.sortBy(this.$store.state.questions, 'createdAt').reverse();
     },
     // 全ての質問データの個数
-    lengthOfQuestions(){
+    lengthOfQuestions() {
       return this.questions.length;
     },
     // pageで指定された、今のページに表示する質問データ
-    paginatedQuestions(){
+    paginatedQuestions() {
       const pq = this.perQuestions;
       return this.questions.slice(
-        this.page*pq,
-        this.page*pq+pq
+        this.page * pq,
+        this.page * pq + pq,
       );
     },
     // 最大のページ番号
-    maxPaginationIndex(){
-      return Math.ceil(this.lengthOfQuestions/this.perQuestions);
-    }
+    maxPaginationIndex() {
+      return Math.ceil(this.lengthOfQuestions / this.perQuestions);
+    },
   },
   mounted() {
     this.retrieveQuestions();
@@ -82,9 +88,9 @@ export default {
     retrieveQuestions() {
       this.$store.dispatch('retrieveQuestions');
     },
-    paginate(id){
+    paginate(id) {
       this.page = id - 1;
-    }
+    },
   },
 };
 </script>

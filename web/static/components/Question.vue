@@ -16,7 +16,8 @@
         </div>
       </div>
       <div v-else>
-        <h2 class="page-title"> <!-- TODO: デザインをなんとかする -->
+        <h2 class="page-title">
+          <!-- TODO: デザインをなんとかする -->
           {{ question.title }}
         </h2>
       </div>
@@ -25,7 +26,7 @@
           class="question-form"
           @submit.prevent="update"
         >
-          <div class = "form-group">
+          <div class="form-group">
             <label for="form-body">内容</label>
             <input
               id="form-body"
@@ -36,23 +37,23 @@
               type="text"
               required
             >
-            </div>
-              <div class="form-group">
-                <button
-                  class="btn btn-primary mb-2"
-                  type="submit"
-                  @click.prevent="submit_updatequestion"
-                >
-                  保存
-                </button>
-                <button
-                  class="cancel-edit-button btn btn-outline-primary mb-2"
-                  type="submit"
-                  @click.prevent="cancelEdit"
-                >
-                  キャンセル
-                </button>
-              </div>
+          </div>
+          <div class="form-group">
+            <button
+              class="btn btn-primary mb-2"
+              type="submit"
+              @click.prevent="submit_updatequestion"
+            >
+              保存
+            </button>
+            <button
+              class="cancel-edit-button btn btn-outline-primary mb-2"
+              type="submit"
+              @click.prevent="cancelEdit"
+            >
+              キャンセル
+            </button>
+          </div>
         </form>
       </div>
       <div v-else>
@@ -80,27 +81,32 @@
       :key="comment.id"
       class="comments"
     >
-      <comment :comment="comment" :documentname = "'question'" />
+      <comment
+        :comment="comment"
+        :documentname="'question'"
+      />
     </div>
     <div>
       <form
         @submit.prevent="submit_postComment"
       >
-
         <div class="form-group">
           <label for="form-commentQuestionInput">コメント</label>
 
           <input
-            class="form-control"
             id="form-commentQuestionInput"
             v-model="bodyOfComment"
+            class="form-control"
             placeholder="コメント欄"
             type="text"
             minlength="1"
             required
-          />
+          >
         </div>
-        <button class="btn btn-primary" type="submit">
+        <button
+          class="btn btn-primary"
+          type="submit"
+        >
           投稿
         </button>
       </form>
@@ -114,50 +120,50 @@ import Vote from '@/components/Vote';
 
 export default {
   name: 'Question',
-  data(){
-    return {
-      editing: false,
-      editingTitle: '',
-      editingBody: '',
-      bodyOfComment: '',
-    }
-  },
   components: {
     Comment,
     Vote,
-  },
-  methods:{
-    startEdit(){
-      this.editing = true;
-      this.editingTitle = this.question.title;
-      this.editingBody = this.question.body;
-    },
-    cancelEdit(){
-      this.editing = false;
-    },
-    update(){
-      this.$emit('update',{title:editingTitle, body: this.editingBody});
-      this.editing = false;
-    },
-    submit_updatequestion(){
-      this.$store.dispatch('updateQuestion',{id: this.$route.params.id, title: this.editingTitle, body: this.editingBody});
-      this.editing = false;
-    },
-    submit_postComment(){
-      this.$store.dispatch('createQuestionComment',{
-        questionId: this.question.id,
-        body: this.bodyOfComment
-      })
-      .then( ()=> {
-        // TODO: 
-        this.bodyOfComment = '';
-      });
-    }
   },
   props: {
     question: {
       type: Object,
       required: true,
+    },
+  },
+  data() {
+    return {
+      editing: false,
+      editingTitle: '',
+      editingBody: '',
+      bodyOfComment: '',
+    };
+  },
+  methods: {
+    startEdit() {
+      this.editing = true;
+      this.editingTitle = this.question.title;
+      this.editingBody = this.question.body;
+    },
+    cancelEdit() {
+      this.editing = false;
+    },
+    update() {
+      this.$emit('update', { title: this.editingTitle, body: this.editingBody });
+      this.editing = false;
+    },
+    submit_updatequestion() {
+      this.$store.dispatch('updateQuestion', { id: this.$route.params.id, title: this.editingTitle, body: this.editingBody });
+      this.editing = false;
+    },
+    submit_postComment() {
+      this.$store.dispatch('createQuestionComment', {
+        questionId: this.question.id,
+        body: this.bodyOfComment,
+      })
+        .then(() => {
+        // TODO:
+          this.bodyOfComment = '';
+        });
     },
   },
 };

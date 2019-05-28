@@ -1,14 +1,18 @@
 <template>
   <div>
     <div v-if="hasValidQuestion">
-      <question 
-        :question="question" 
+      <question
+        :question="question"
         class="question"
-        @update="updateQuestion"/>
+        @update="updateQuestion"
+      />
 
       <hr>
-      
-      <div v-for="answer in answers" :key="answer.id">
+
+      <div
+        v-for="answer in answers"
+        :key="answer.id"
+      >
         <answer :answer="answer" />
       </div>
 
@@ -17,10 +21,22 @@
       <div>
         <div class="card">
           <div class="card-body">
-            <h3 class="card-title">回答を投稿する</h3>
-            <form class="form-group" @submit.prevent="postAnswer">
-              <textarea class="form-control" rows="5" v-model="bodyPostAnswer"></textarea>
-              <input class="btn btn-primary text-right" type="submit" />
+            <h3 class="card-title">
+              回答を投稿する
+            </h3>
+            <form
+              class="form-group"
+              @submit.prevent="postAnswer"
+            >
+              <textarea
+                v-model="bodyPostAnswer"
+                class="form-control"
+                rows="5"
+              />
+              <input
+                class="btn btn-primary text-right"
+                type="submit"
+              >
             </form>
           </div>
         </div>
@@ -47,7 +63,7 @@ export default {
   },
   data() {
     return {
-      bodyPostAnswer: ''
+      bodyPostAnswer: '',
     };
   },
   computed: {
@@ -59,7 +75,7 @@ export default {
     },
     answers() {
       return this.$store.state.answers;
-    }
+    },
   },
   mounted() {
     this.retrieveQuestion();
@@ -72,11 +88,11 @@ export default {
     retrieveAnswers() {
       this.$store.dispatch('retrieveAnswers', { questionId: this.$route.params.id });
     },
-    updateQuestion({title, body}){
-      this.$store.dispatch('updateQuestion',{id: this.$route.params.id, title, body});
+    updateQuestion({ title, body }) {
+      this.$store.dispatch('updateQuestion', { id: this.$route.params.id, title, body });
     },
-    postAnswer(){
-      this.$store.dispatch('createAnswer',{questionId: this.question.id, body: this.bodyPostAnswer});
+    postAnswer() {
+      this.$store.dispatch('createAnswer', { questionId: this.question.id, body: this.bodyPostAnswer });
       this.bodyPostAnswer = '';
     },
   },

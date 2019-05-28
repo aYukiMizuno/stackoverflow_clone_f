@@ -16,18 +16,19 @@
           type="text"
           minlength="1"
           :maxlength="titleMaxLength"
-          required 
+          required
         >
         <small
           id="form-titlecounter"
-          class="form-text text-muted text-right">
-          {{title.length}}/{{titleMaxLength}}
+          class="form-text text-muted text-right"
+        >
+          {{ title.length }}/{{ titleMaxLength }}
         </small>
       </div>
       <div class="form-group">
         <label for="form-body">内容</label>
         <textarea
-          id="form-body" 
+          id="form-body"
           v-model="body"
           class="body-edit form-control"
           minlength="1"
@@ -36,8 +37,9 @@
         />
         <small
           id="form-bodycounter"
-          class="form-text text-muted text-right">
-          {{this.body.length}}/{{bodyMaxLength}}
+          class="form-text text-muted text-right"
+        >
+          {{ body.length }}/{{ bodyMaxLength }}
         </small>
       </div>
       <div class="form-group">
@@ -59,18 +61,18 @@
 <script>
 export default {
   name: 'QuestionCreationPage',
-  data(){
-    return{
+  data() {
+    return {
       title: '',
       body: '',
     };
   },
   methods: {
-    submit(){
-      this.$store.dispatch('createQuestion',{title: this.title, body: this.body})
-      .then( ()=> {
-        this.$router.push({path:'/'});
-      });
+    submit() {
+      this.$store.dispatch('createQuestion', { title: this.title, body: this.body })
+        .then(() => {
+          this.$router.push({ path: '/' });
+        });
     },
   },
 };
