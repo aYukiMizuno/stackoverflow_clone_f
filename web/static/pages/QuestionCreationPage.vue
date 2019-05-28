@@ -69,7 +69,7 @@ export default {
     submit(){
       this.$store.dispatch('createQuestion',{title: this.title, body: this.body})
       .then( ()=> {
-        this.$router.push({path:'/question'});
+        this.$router.push({path:'/'});
       });
     },
   },

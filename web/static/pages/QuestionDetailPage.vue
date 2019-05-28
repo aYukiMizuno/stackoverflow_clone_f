@@ -77,6 +77,7 @@ export default {
     },
     postAnswer(){
       this.$store.dispatch('createAnswer',{questionId: this.question.id, body: this.bodyPostAnswer});
+      this.bodyPostAnswer = '';
     },
   },
 };
