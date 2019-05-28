@@ -4,7 +4,7 @@ defmodule StackoverflowCloneF.Controller.Answer.Helper do
   defmodule Params do
     defmodule Body do
       # answerの本文は1文字以上3000文字以内。
-      use Croma.SubtypeOfString, pattern: ~r/\A.{1,3000}\z/u
+      use Croma.SubtypeOfString, pattern: ~r/\A.{1,3000}\z/su
     end
   end
 

@@ -10,7 +10,7 @@ defmodule StackoverflowCloneF.Controller.Question.Helper do
     end
     defmodule Body do
       # 本文は1文字以上3000文字以内。
-      use Croma.SubtypeOfString, pattern: ~r/\A.{1,3000}\z/u
+      use Croma.SubtypeOfString, pattern: ~r/\A.{1,3000}\z/su
     end
   end
 
