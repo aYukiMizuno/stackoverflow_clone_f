@@ -25,18 +25,23 @@
               回答を投稿する
             </h3>
             <form
-              class="form-group"
               @submit.prevent="postAnswer"
             >
-              <textarea
-                v-model="bodyPostAnswer"
-                class="form-control"
-                rows="5"
-              />
-              <input
-                class="btn btn-primary text-right"
-                type="submit"
+              <div
+                class="form-group"
               >
+                <textarea
+                  v-model="bodyPostAnswer"
+                  class="form-control"
+                  rows="5"
+                />
+              </div>
+              <div class="clearfix">
+                <input
+                  class="btn btn-primary float-right"
+                  type="submit"
+                >
+              </div>
             </form>
           </div>
         </div>
