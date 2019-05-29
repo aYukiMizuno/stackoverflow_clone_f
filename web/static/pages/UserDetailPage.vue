@@ -107,10 +107,10 @@ export default {
       return this.$route.params.id;
     },
     questions() {
-      return this.sortBy(this.$store.state.questions, 'createdAt');
+      return this.sortBy(this.$store.state.questions, 'createdAt').reverse();
     },
     answers() {
-      return this.sortBy(this.$store.state.answers, 'createdAt');
+      return this.sortBy(this.$store.state.answers, 'createdAt').reverse();
     },
   },
   mounted() {
