@@ -53,7 +53,7 @@ export default {
       
     },
     checkPostType(){
-      console.log(this.postType);
+      // console.log(this.postType);
       if(this.postType=='createTUser'){
         this.postCreatedTime = true;
       }else{

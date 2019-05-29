@@ -16,7 +16,7 @@
         </div>
       </div>
       <div v-else>
-        <h2 class="page-title text">
+        <h2 class="text" style="margin-block-end: 0em;">
           <!-- TODO: デザインをなんとかする -->
           {{ question.title }}
         </h2>
@@ -67,9 +67,22 @@
         </form>
       </div>
       <div v-else>
-        <div class="body questionbody jumbotron text-dark">{{ question.body }}
+        <hr>
+        <div>
+          <div class="div_float text-dark">
+            <button v-show="isOwner" type="button" class="cell btn btn-link text-dark"  @click="startEdit">
+              <a data-toggle="tooltip" data-placement="left" title="質問更新">
+                <i 
+                  class='far fa-edit' 
+                  style='font-size:24px'
+                 ></i>
+              </a>
+            </button>
+            <p class="cell questionbody">{{ question.body }}</p>
+          </div>
         </div>
-        <div class="additional">
+        
+        <div class="additional text-right">
           <PostInfo :document="question" :postType="'durTuser'" />
           <!-- Posted at {{ question.createdAt | submitDur }}
           <span v-show="!isOwner">
@@ -78,20 +91,8 @@
             </router-link>
           </span> -->
         </div>
-        <div class="additional text-right">
-          <span v-if="!editing">
-            <button
-              v-show="isOwner"
-              type="button"
-              class="edit-button btn btn-light mb-2"
-              @click="startEdit"
-            >
-              更新
-            </button>
-          </span>
-        </div>
       </div>
-      <div>
+      <div class="additional">
         <vote :document="question" />
       </div>
     </div>
@@ -99,6 +100,7 @@
       v-for="comment in question.comments"
       :key="comment.id"
       class="comments"
+      style="margin-block-start: 1em;"
     >
       <comment
         :comment="comment"
@@ -219,8 +221,18 @@ p {
 .questionbody{
   display: block;
   font-size:5mm;
+  margin-top: 3mm;
   margin-left:3mm;
   margin-bottom:3mm;
   white-space: pre-wrap;
+}
+
+.div_float {
+  content:'';
+  display:table;
+  clear:both;
+}
+.div_float .cell {
+  float: left;
 }
 </style>
