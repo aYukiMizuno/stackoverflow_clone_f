@@ -1,24 +1,25 @@
 <template>
-    <div class="additional">
-      <span v-if="postCreatedTime">Posted at: {{this.document.createdAt | moment}}</span>
-      <span v-else>Posted at: {{this.document.createdAt | submitDur}}</span>
-      <span v-show="!isOwner">
-        | by <router-link :to="{ name: 'UserDetailPage', params: { id: this.document.userId }}">
-          {{ this.document.userId }}
-        </router-link>
-      </span>
-    </div>
+  <div class="additional">
+    <span v-if="postCreatedTime">Posted at: {{ this.document.createdAt | moment }}</span>
+    <span v-else>Posted at: {{ this.document.createdAt | submitDur }}</span>
+    <span v-show="!isOwner">
+      | by <router-link :to="{ name: 'UserDetailPage', params: { id: this.document.userId }}">
+        {{ this.document.userId }}
+      </router-link>
+    </span>
+  </div>
 </template>
 
 <script>
 import moment from 'moment';
+
 export default {
   name: 'PostInfo',
   filters: {
     moment: function (date) {
-        return moment(date).format('YYYY/MM/DD HH:mm');
+      return moment(date).format('YYYY/MM/DD HH:mm');
     },
-    submitDur(data){
+    submitDur(data) {
       return moment(data).fromNow();
     },
   },
@@ -30,37 +31,36 @@ export default {
     postType: {
       type: String,
       required: true,
-    }
+    },
   },
   data() {
-    return{
+    return {
       isOwner: false,
       postCreatedTime: false,
     };
   },
-  mounted(){
+  mounted() {
     this.checkOwner();
     this.checkPostType();
   },
   methods: {
-    checkOwner(){
+    checkOwner() {
       // console.log(this.$store.state.id)
-      if (this.document.userId==this.$store.state.id){
+      if (this.document.userId === this.$store.state.id) {
         this.isOwner = true;
-      }else{
+      } else {
         this.isOwner = false;
       }
-      
     },
-    checkPostType(){
+    checkPostType() {
       // console.log(this.postType);
-      if(this.postType=='createTUser'){
+      if (this.postType === 'createTUser') {
         this.postCreatedTime = true;
-      }else{
+      } else {
         this.postCreatedTime = false;
       }
-    }
-  }
+    },
+  },
 
-}
+};
 </script>

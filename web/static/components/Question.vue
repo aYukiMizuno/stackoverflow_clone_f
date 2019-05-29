@@ -16,7 +16,10 @@
         </div>
       </div>
       <div v-else>
-        <h2 class="text" style="margin-block-end: 0em;">
+        <h2
+          class="text"
+          style="margin-block-end: 0em;"
+        >
           <!-- TODO: デザインをなんとかする -->
           {{ question.title }}
         </h2>
@@ -39,14 +42,14 @@
             > -->
             <textarea
               id="from-body"
+              v-model="editingBody"
               placeholder="質疑内容を入力する"
               class="body-edit form-control"
-              v-model="editingBody"
               maxlength="3000"
               minlength="1"
               type="text"
               required
-            ></textarea>
+            />
           </div>
           <div class="form-group">
             <button
@@ -70,20 +73,34 @@
         <hr>
         <div>
           <div class="div_float text-dark">
-            <button v-show="isOwner" type="button" class="cell btn btn-link text-dark"  @click="startEdit">
-              <a data-toggle="tooltip" data-placement="left" title="質問更新">
-                <i 
-                  class='far fa-edit' 
-                  style='font-size:24px'
-                 ></i>
+            <button
+              v-show="isOwner"
+              type="button"
+              class="cell btn btn-link text-dark"
+              @click="startEdit"
+            >
+              <a
+                data-toggle="tooltip"
+                data-placement="left"
+                title="質問更新"
+              >
+                <i
+                  class="far fa-edit"
+                  style="font-size:24px"
+                />
               </a>
             </button>
-            <p class="cell questionbody">{{ question.body }}</p>
+            <p class="cell questionbody">
+              {{ question.body }}
+            </p>
           </div>
         </div>
-        
+
         <div class="additional text-right">
-          <PostInfo :document="question" :postType="'durTuser'" />
+          <PostInfo
+            :document="question"
+            :post-type="'durTuser'"
+          />
           <!-- Posted at {{ question.createdAt | submitDur }}
           <span v-show="!isOwner">
             by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
@@ -153,9 +170,6 @@ export default {
       required: true,
     },
   },
-  mounted(){
-    this.checkOwner();
-  },
   data() {
     return {
       editing: false,
@@ -165,7 +179,10 @@ export default {
       isOwner: false,
     };
   },
-  
+  mounted() {
+    this.checkOwner();
+  },
+
   methods: {
     startEdit() {
       this.editing = true;
@@ -193,13 +210,12 @@ export default {
           this.bodyOfComment = '';
         });
     },
-    checkOwner(){
-      if (this.question.userId==this.$store.state.id){
+    checkOwner() {
+      if (this.question.userId === this.$store.state.id) {
         this.isOwner = true;
-      }else{
+      } else {
         this.isOwner = false;
       }
-    
     },
   },
 };
