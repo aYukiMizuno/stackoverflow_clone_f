@@ -4,7 +4,7 @@
       <div class="card-body">
         <div
           v-if="!editingQC"
-          class=""
+          class="comment-body"
         >
           <div class="card-text">
             {{ comment.body }}
@@ -24,7 +24,7 @@
             required
           >
         </div>
-        <div class="">
+        <div class="comment-user">
           <div class="float-left">
             <small class="text-muted">{{ comment.userId }} さん / {{ comment.createdAt }}</small>
           </div>
