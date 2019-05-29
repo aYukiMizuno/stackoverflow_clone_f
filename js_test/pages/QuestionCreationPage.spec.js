@@ -31,7 +31,7 @@ describe('QuestionCreationPage', function () {
     const title = 'title';
     const body = 'body';
     sandbox.stub(router, 'push').callsFake(({ path }) => {
-      assert(path === '/question');
+      assert(path === '/');
       done();
     });
     const wrapper = shallowMount(QuestionCreationPage, {
