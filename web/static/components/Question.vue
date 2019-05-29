@@ -16,7 +16,7 @@
         </div>
       </div>
       <div v-else>
-        <h2 class="page-title">
+        <h2 class="page-title text">
           <!-- TODO: デザインをなんとかする -->
           {{ question.title }}
         </h2>
@@ -28,7 +28,7 @@
         >
           <div class="form-group">
             <label for="form-body">内容</label>
-            <input
+            <!-- <input
               id="form-body"
               v-model="editingBody"
               class="body-edit form-control"
@@ -36,7 +36,17 @@
               minlength="1"
               type="text"
               required
-            >
+            > -->
+            <textarea
+              id="from-body"
+              placeholder="質疑内容を入力する"
+              class="body-edit form-control"
+              v-model="editingBody"
+              maxlength="3000"
+              minlength="1"
+              type="text"
+              required
+            ></textarea>
           </div>
           <div class="form-group">
             <button
@@ -57,23 +67,32 @@
         </form>
       </div>
       <div v-else>
-        <div class="body">
-          {{ question.body }}
+        <div class="body questionbody jumbotron text-dark">{{ question.body }}
         </div>
         <div class="additional">
+          <PostInfo :document="question" :postType="'durTuser'" />
+          <!-- Posted at {{ question.createdAt | submitDur }}
+          <span v-show="!isOwner">
+            by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
+              {{ question.userId }}
+            </router-link>
+          </span> -->
+        </div>
+        <div class="additional text-right">
           <span v-if="!editing">
             <button
+              v-show="isOwner"
               type="button"
-              class="edit-button btn btn-link"
+              class="edit-button btn btn-light mb-2"
               @click="startEdit"
             >
               更新
             </button>
           </span>
         </div>
-        <div>
-          <vote :document="question" />
-        </div>
+      </div>
+      <div>
+        <vote :document="question" />
       </div>
     </div>
     <div
@@ -117,12 +136,14 @@
 <script>
 import Comment from '@/components/Comment';
 import Vote from '@/components/Vote';
+import PostInfo from '@/components/PostInfo';
 
 export default {
   name: 'Question',
   components: {
     Comment,
     Vote,
+    PostInfo,
   },
   props: {
     question: {
@@ -130,14 +151,19 @@ export default {
       required: true,
     },
   },
+  mounted(){
+    this.checkOwner();
+  },
   data() {
     return {
       editing: false,
       editingTitle: '',
       editingBody: '',
       bodyOfComment: '',
+      isOwner: false,
     };
   },
+  
   methods: {
     startEdit() {
       this.editing = true;
@@ -165,9 +191,36 @@ export default {
           this.bodyOfComment = '';
         });
     },
+    checkOwner(){
+      if (this.question.userId==this.$store.state.id){
+        this.isOwner = true;
+      }else{
+        this.isOwner = false;
+      }
+    
+    },
   },
 };
 </script>
 
 <style scoped>
+p {
+    word-spacing: 0.06em;
+}
+.text {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-size:8mm;
+}
+
+.questionbody{
+  display: block;
+  font-size:5mm;
+  margin-left:3mm;
+  margin-bottom:3mm;
+  white-space: pre-wrap;
+}
 </style>
