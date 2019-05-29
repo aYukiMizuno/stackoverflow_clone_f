@@ -19,10 +19,11 @@
         </router-link>
       </h5>
       <div class="additional">
-        Posted at {{ question.createdAt }}
+        <PostInfo :document="question" :postType="'createTUser'" />
+        <!-- Posted at {{ question.createdAt | moment }}
         by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
           {{ question.userId }}
-        </router-link>
+        </router-link> -->
       </div>
       <hr>
     </div>
@@ -50,9 +51,22 @@
 </template>
 
 <script>
+import moment from 'moment';
+import PostInfo from '@/components/PostInfo';
 
 export default {
   name: 'QuestionListPage',
+  filters: {
+    moment: function (date) {
+        return moment(date).format('YYYY/MM/DD HH:mm');
+    },
+    submitDur(data){
+      return moment(data).fromNow();
+    },
+  },
+  components:{
+    PostInfo,
+  },
   data() {
     return {
       page: 0, // 今のページ番号 0-indexed

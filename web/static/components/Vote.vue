@@ -1,12 +1,12 @@
 <template>
   <div class="footer">
     <button type="button" class="btn btn-outline-light text-dark" data-toggle="tooltip" data-placement="bottom" title="いいね" @click="likeVote()">
-      <i v-if="isLikeVoted" class="fas fa-thumbs-up" style="font-size:20px"></i>
-      <i v-else class="far fa-thumbs-up" style="font-size:20px"></i>  {{ countLikeVote }}
+      <img v-if="votedlike" src="../imgs/fas-thumb-up.png" width="20em"/>
+      <img v-else src="../imgs/far-thumb-up.png" width="20em"/>  {{ countLikeVote }}
     </button >
     <button type="button" class="btn btn-outline-light text-dark" data-toggle="tooltip" data-placement="bottom" title="よくない" @click="dislikeVote()">
-      <i v-if="isDislikeVoted" class="fas fa-thumbs-down" style="font-size:20px"></i>
-      <i v-else class="far fa-thumbs-down" style="font-size:20px"></i>  {{ countDislikeVote }}
+      <img v-if="voteddislike" src="../imgs/fas-thumbs-down.png" width="25em"/>
+      <img v-else src="../imgs/far-thumbs-down.png" width="20em"/>  {{ countDislikeVote }}
     </button>
     
     <!-- <span>{{ countVote }}</span> -->
@@ -21,6 +21,15 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return{
+      votedlike: false,
+      voteddislike: false,
+    };
+  },
+  mounted(){
+    this.updateVote();
   },
   computed: {
     isLikeVoted(){
@@ -45,11 +54,18 @@ export default {
     likeVote() {
       this.$store.dispatch('createQuestionVote', { questionId: this.document.id, voteType: 'like_vote' })
       .then(()=>{
-        console.log(this.isLikeVoted);
+        this.updateVote();
       });
     },
     dislikeVote() {
-      this.$store.dispatch('createQuestionVote', { questionId: this.document.id, voteType: 'dislike_vote' });
+      this.$store.dispatch('createQuestionVote', { questionId: this.document.id, voteType: 'dislike_vote' })
+      .then(()=>{
+        this.updateVote();
+      });
+    },
+    updateVote(){
+      this.voteddislike = this.isDislikeVoted;
+      this.votedlike = this.isLikeVoted;
     },
   },
 };
