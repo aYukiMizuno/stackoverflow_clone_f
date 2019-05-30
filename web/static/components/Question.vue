@@ -115,17 +115,19 @@
         />
       </div>
     </div>
-    <div
-      v-for="comment in question.comments"
-      :key="comment.id"
-      class="comments"
-      style="margin-block-start: 1em;"
-    >
-      <comment
-        :comment="comment"
-        :documentname="'question'"
-      />
-    </div>
+    <transition-group name="fade">
+      <div
+        v-for="comment in question.comments"
+        :key="comment.id"
+        class="comments"
+        style="margin-block-start: 1em;"
+      >
+        <comment
+          :comment="comment"
+          :documentname="'question'"
+        />
+      </div>
+    </transition-group>
     <div>
       <form
         v-if="isLoggedIn()"

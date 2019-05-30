@@ -72,7 +72,7 @@
             <div
               v-for="answer in answers"
               :key="answer.id"
-              class="list-group-item list-group-item-action"
+              class="list-group-item list-group-item-action fade-in"
             >
               <div class="answer-body">
                 <router-link :to="{ name: 'QuestionDetailPage', params: { id: answer.questionId }}">
@@ -137,7 +137,23 @@ export default {
   text-align: center;
   font-size: 180px;
 }
+.icon-userface:hover{
+  animation: iconanim 0.5s ease 1;
+}
 .break-all{
   word-break: break-all;
+}
+
+.fade-in:hover{
+  animation: fade-in 0.5s linear 1;
+}
+
+@keyframes iconanim {
+    0% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 </style>

@@ -9,12 +9,14 @@
 
       <hr>
 
-      <div
-        v-for="answer in answers"
-        :key="answer.id"
-      >
-        <answer :answer="answer" />
-      </div>
+      <transition-group name="fade">
+        <div
+          v-for="answer in answers"
+          :key="answer.id"
+        >
+          <answer :answer="answer" />
+        </div>
+      </transition-group>
 
       <hr>
 
