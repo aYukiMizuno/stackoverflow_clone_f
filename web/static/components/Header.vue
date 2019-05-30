@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-default">
+  <nav class="navbar bg-dark navbar-dark">
     <router-link
-      class="navbar-brand"
+      class="navbar-brand brand-font"
       to="/"
     >
       StackoverFlowClone
@@ -51,5 +51,9 @@ export default {
 .navbar-brand::before {
   vertical-align: middle;
   content: url("../imgs/icon.png");
+}
+.brand-font{
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 6mm
 }
 </style>
