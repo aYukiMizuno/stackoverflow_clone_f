@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="page-title">
-      質問を見る
+      質問一覧
     </div>
-    <div>
+    <div v-if="isLoggedIn()">
       <router-link to="question/create">
         質問する
       </router-link>
