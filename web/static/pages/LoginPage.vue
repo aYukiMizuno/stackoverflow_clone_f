@@ -79,13 +79,14 @@
       </form>
     </div>
 
-    <div class="mainbg">
+    <div>
       <video
         id="video"
         poster
         autoplay
         muted
         loop
+        class="mainbg"
       >
         <source
           src="https://www.access-company.com/wp-content/themes/access_jp/img/top-movie.mp4"
@@ -147,9 +148,8 @@ export default {
   top: 15mm;
   left: 0;
   right:0;
-  width: 100%;
-  height: 100%;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   overflow: hidden;
   z-index: 1;
 }
