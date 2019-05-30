@@ -1,10 +1,10 @@
 <template>
   <div class="additional">
-    <span v-if="postCreatedTime">Posted at: {{ this.document.createdAt | moment }}</span>
-    <span v-else>Posted at: {{ this.document.createdAt | submitDur }}</span>
+    <span v-if="postCreatedTime">Posted at: {{ document.createdAt | moment }}</span>
+    <span v-else>Posted at: {{ document.createdAt | submitDur }}</span>
     <span v-show="!isOwner">
-      | by <router-link :to="{ name: 'UserDetailPage', params: { id: this.document.userId }}">
-        {{ this.document.userId }}
+      | by <router-link :to="{ name: 'UserDetailPage', params: { id: document.userId }}">
+        {{ document.userId }}
       </router-link>
     </span>
   </div>
