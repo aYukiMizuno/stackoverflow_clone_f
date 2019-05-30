@@ -64,6 +64,7 @@
         </div>
 
         <form
+          v-if="isLoggedIn()"
           class="card container"
           @submit.prevent="submit_anComment"
         >

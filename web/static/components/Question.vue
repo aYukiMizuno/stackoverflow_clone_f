@@ -125,6 +125,7 @@
     </div>
     <div>
       <form
+        v-if="isLoggedIn()"
         @submit.prevent="submit_postComment"
       >
         <div class="form-group">
