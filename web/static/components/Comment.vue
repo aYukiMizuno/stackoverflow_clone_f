@@ -26,7 +26,10 @@
         </div>
         <div class="comment-user">
           <div class="float-left">
-            <small class="text-muted">{{ comment.userId }} さん / {{ comment.createdAt }}</small>
+            <PostInfo
+              :document="comment"
+              :post-type="'durTuser'"
+            />
           </div>
           <div
             v-if="own && !editingQC"
@@ -67,8 +70,12 @@
 </template>
 
 <script>
+import PostInfo from '@/components/PostInfo';
 export default {
   name: 'Comment',
+  components:{
+    PostInfo,
+  },
   props: {
     comment: {
       type: Object,

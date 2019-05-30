@@ -16,9 +16,10 @@
           />
           <div class="card-text">
             <div class="float-left">
-              <small class="text-muted">
-                {{ answer.userId }} さん / {{ answer.createdAt }}
-              </small>
+              <PostInfo
+                :document="answer"
+                :post-type="'durTuser'"
+              />
             </div>
             <div
               v-if="own && !editing"
@@ -97,12 +98,14 @@
 
 <script>
 import Comment from '@/components/Comment';
+import PostInfo from '@/components/PostInfo';
 
 export default {
   name: 'Answer',
 
   components: {
     Comment,
+    PostInfo,
   },
 
   props: {
