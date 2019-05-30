@@ -53,16 +53,18 @@
         </form>
       </div>
       <div class="card-footer bg-transparent">
-        <div
-          v-for="comment in answer.comments"
-          id="an-comment-list"
-          :key="comment.id"
-        >
-          <comment
-            :comment="comment"
-            :documentname="'answer'"
-          />
-        </div>
+        <transition-group name="fade">
+          <div
+            v-for="comment in answer.comments"
+            id="an-comment-list"
+            :key="comment.id"
+          >
+            <comment
+              :comment="comment"
+              :documentname="'answer'"
+            />
+          </div>
+        </transition-group>
 
         <form
           v-if="isLoggedIn()"
