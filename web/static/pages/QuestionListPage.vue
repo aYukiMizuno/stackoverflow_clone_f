@@ -18,11 +18,18 @@
           {{ question.title }}
         </router-link>
       </h5>
-      <div class="additional">
+      <div class="additional d-flex">
+        <div class="flex-grow-1">
         <PostInfo
           :document="question"
           :post-type="'createTUser'"
         />
+        </div>
+        <!--
+        <div class="">
+          <questionInfo :question="question" />
+        </div>
+        -->
         <!-- Posted at {{ question.createdAt | moment }}
         by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
           {{ question.userId }}
@@ -56,6 +63,7 @@
 <script>
 import moment from 'moment';
 import PostInfo from '@/components/PostInfo';
+import QuestionInfo from '@/components/QuestionInfo';
 
 export default {
   name: 'QuestionListPage',
@@ -69,6 +77,7 @@ export default {
   },
   components: {
     PostInfo,
+    QuestionInfo
   },
   data() {
     return {
