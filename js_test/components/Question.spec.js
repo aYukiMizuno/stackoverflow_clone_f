@@ -40,9 +40,11 @@ describe('Question', function () {
       router,
       propsData: { question },
     });
-    assert(wrapper.find('.page-title').text().includes(question.title));
-    assert(wrapper.find('.body').text().includes(question.body));
+    assert(wrapper.contains('.question-title'));
+    assert(wrapper.contains('.question-body'));
     assert(wrapper.contains('.comments'));
+    assert(wrapper.find('.question-title').text().includes(question.title));
+    assert(wrapper.find('.question-body').text().includes(question.body));
   });
 
   it('renders comment form', () => {

@@ -6,9 +6,8 @@
           <p
             v-if="!editing"
             class="card-text"
-            style="white-space: pre-wrap;"
           >
-            {{ answer.body }}
+            <pre style="font-family: inherit;">{{ answer.body }}</pre>
           </p>
           <textarea
             v-else
