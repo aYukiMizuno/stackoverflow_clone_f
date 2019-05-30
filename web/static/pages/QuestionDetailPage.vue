@@ -18,7 +18,9 @@
 
       <hr>
 
-      <div>
+      <div
+        v-if="isLoggedIn()"
+      >
         <div class="card">
           <div class="card-body">
             <h3 class="card-title">
@@ -46,6 +48,24 @@
           </div>
         </div>
       </div>
+      <div v-else>
+        <div class="card border-success">
+          <div class="card-body">
+            <p class="text-center">
+              あなたも回答してみませんか :)
+            </p>
+            <div class="text-center">
+              すでにアカウントを持っている方は
+              <router-link
+                class="login-link"
+                to="/login"
+              >
+                ログイン
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <hr>
 
@@ -55,6 +75,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import Question from '@/components/Question';

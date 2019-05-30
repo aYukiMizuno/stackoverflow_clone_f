@@ -109,7 +109,10 @@
         </div>
       </div>
       <div class="additional">
-        <vote :document="question" />
+        <vote
+          :document="question"
+          :disabled="!isLoggedIn()"
+        />
       </div>
     </div>
     <div
@@ -125,6 +128,7 @@
     </div>
     <div>
       <form
+        v-if="isLoggedIn()"
         @submit.prevent="submit_postComment"
       >
         <div class="form-group">
