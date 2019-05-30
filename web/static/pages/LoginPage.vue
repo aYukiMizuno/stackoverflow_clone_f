@@ -1,7 +1,10 @@
 <template>
   <div class="main">
     <div class="card">
-      <form class="login-form" @submit.prevent="submit">
+      <form
+        class="login-form"
+        @submit.prevent="submit"
+      >
         <div>
           <!-- <label>
             Email:
@@ -13,15 +16,19 @@
               required
             >
           </label> -->
-          <label for="email2" class="label-font mb-2 mr-sm-2">Email:</label>
-          <input 
-            type="email" 
+          <label
+            for="email2"
+            class="label-font mb-2 mr-sm-2"
+          >Email:</label>
+          <input
+            id="email2"
             v-model="email"
-            class="form-control mb-2 mr-sm-2" 
-            id="email2" 
-            placeholder="Enter email" 
+            type="email"
+            class="form-control mb-2 mr-sm-2"
+            placeholder="Enter email"
             name="email"
-            required>
+            required
+          >
         </div>
         <div>
           <!-- <label>Password:
@@ -33,41 +40,59 @@
               required
             >
           </label> -->
-          <label for="pwd2" class="label-font mb-2 mr-sm-2">Password:</label>
-          <input 
+          <label
+            for="pwd2"
+            class="label-font mb-2 mr-sm-2"
+          >Password:</label>
+          <input
+            id="pwd2"
+            v-model="password"
             type="password"
-            v-model="password" 
-            class="form-control mb-2 mr-sm-2" 
-            id="pwd2" 
-            placeholder="Enter password" 
+            class="form-control mb-2 mr-sm-2"
+            placeholder="Enter password"
             minlength="8"
             name="pswd"
-            required>
+            required
+          >
         </div>
-        
+
         <div class="form-inline">
           <div class="form-check mb-2 mr-sm-2">
             <label class="label-font form-check-label">
-              <input type="checkbox" class="form-check-input" name="remember"> Remember me
+              <input
+                type="checkbox"
+                class="form-check-input"
+                name="remember"
+              > Remember me
             </label>
-          </div>  
-          <button type="submit" class="btn btn-primary">
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
             ログイン
           </button>
           <div class="error-message">
             {{ errorMsg }}
+          </div>
         </div>
-        </div>
-        
       </form>
     </div>
-    
+
     <div class="mainbg">
-      <video id="video" poster autoplay muted loop>
-        <source src="https://www.access-company.com/wp-content/themes/access_jp/img/top-movie.mp4"
-        type="video/mp4">
+      <video
+        id="video"
+        poster
+        autoplay
+        muted
+        loop
+      >
+        <source
+          src="https://www.access-company.com/wp-content/themes/access_jp/img/top-movie.mp4"
+          type="video/mp4"
+        >
       </video>
-  </div>
+    </div>
   </div>
 </template>
 
