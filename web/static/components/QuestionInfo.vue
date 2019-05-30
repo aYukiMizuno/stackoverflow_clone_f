@@ -3,11 +3,11 @@
       <!--<img
         src="../imgs/far-thumb-up.png"
         width="20em"
-      >-->👍{{ countLikeVote}}
+      >-->👍{{ countLikeVote }}
       <!--<img
         src="../imgs/far-thumb-down.png"
         width="20em"
-      >-->👎{{ countDislikeVote}}
+      >-->👎{{ countDislikeVote }}
   </div>
 </template>
 
@@ -18,12 +18,12 @@ export default {
     question: {
       type: Object,
       required: true,
-    }
+    },
   },
   data() {
     return {};
   },
-  computed:{
+  computed: {
     countLikeVote() {
       return this.question.likeVoterIds.length;
     },
@@ -32,10 +32,10 @@ export default {
     },
   },
   mounted() {
-      
+
   },
   methods: {
-      
+
   },
 
 };

@@ -20,10 +20,10 @@
       </h5>
       <div class="additional d-flex">
         <div class="flex-grow-1">
-        <PostInfo
-          :document="question"
-          :post-type="'createTUser'"
-        />
+          <PostInfo
+            :document="question"
+            :post-type="'createTUser'"
+          />
         </div>
         <div class="">
           <questionInfo :question="question" />
@@ -75,7 +75,7 @@ export default {
   },
   components: {
     PostInfo,
-    QuestionInfo
+    QuestionInfo,
   },
   data() {
     return {
