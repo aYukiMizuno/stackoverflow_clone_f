@@ -27,9 +27,9 @@ describe('Comment', function () {
     const wrapper = shallowMount(Comment, {
       store,
       router,
-      propsData: { comment },
+      propsData: { comment, documentname: 'question' },
     });
-    assert(wrapper.find('.comment-user').text().includes(comment.userId));
-    assert(wrapper.find('.comment-body').text().includes(comment.body));
+    assert(wrapper.contains('.comment-user'));
+    assert(wrapper.contains('.comment-body'));
   });
 });

@@ -10,9 +10,6 @@ defmodule StackoverflowCloneF.Controller.Answer.Create do
 
 
   defmodule CommentCroma do
-    defmodule Title do
-      use Croma.SubtypeOfString, pattern: ~r/\A.{1,100}\z/u
-    end
     use Croma.Struct, fields: [
       body: Helper.Params.Body,
       question_id: Croma.String,

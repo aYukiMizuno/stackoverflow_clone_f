@@ -19,7 +19,10 @@
         </router-link>
       </h5>
       <div class="additional">
-        <PostInfo :document="question" :postType="'createTUser'" />
+        <PostInfo
+          :document="question"
+          :post-type="'createTUser'"
+        />
         <!-- Posted at {{ question.createdAt | moment }}
         by <router-link :to="{ name: 'UserDetailPage', params: { id: question.userId }}">
           {{ question.userId }}
@@ -58,13 +61,13 @@ export default {
   name: 'QuestionListPage',
   filters: {
     moment: function (date) {
-        return moment(date).format('YYYY/MM/DD HH:mm');
+      return moment(date).format('YYYY/MM/DD HH:mm');
     },
-    submitDur(data){
+    submitDur(data) {
       return moment(data).fromNow();
     },
   },
-  components:{
+  components: {
     PostInfo,
   },
   data() {

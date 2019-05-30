@@ -6,7 +6,7 @@
           v-if="!editingQC"
           class="comment-body"
         >
-          <div class="card-text">
+          <div class="card-text comment-body">
             {{ comment.body }}
           </div>
         </div>
