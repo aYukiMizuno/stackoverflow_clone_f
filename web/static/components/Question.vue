@@ -109,7 +109,7 @@
         </div>
       </div>
       <div class="additional">
-        <vote :document="question" />
+        <vote :document="question" :disabled="!isLoggedIn()"/>
       </div>
     </div>
     <div

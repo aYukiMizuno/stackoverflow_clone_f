@@ -7,14 +7,15 @@
       data-placement="bottom"
       title="いいね"
       @click="likeVote()"
+      v-bind:disabled="!!disabled"
     >
       <img
-        v-if="votedlike"
+        v-show="votedlike"
         src="../imgs/fas-thumb-up.png"
         width="20em"
       >
       <img
-        v-else
+        v-show="!votedlike"
         src="../imgs/far-thumb-up.png"
         width="20em"
       >  {{ countLikeVote }}
@@ -26,14 +27,15 @@
       data-placement="bottom"
       title="よくない"
       @click="dislikeVote()"
+      v-bind:disabled="!!disabled"
     >
       <img
-        v-if="voteddislike"
+        v-show="voteddislike"
         src="../imgs/fas-thumbs-down.png"
         width="25em"
       >
       <img
-        v-else
+        v-show="!voteddislike"
         src="../imgs/far-thumbs-down.png"
         width="20em"
       >  {{ countDislikeVote }}
@@ -44,6 +46,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Vote',
   props: {
@@ -51,6 +54,9 @@ export default {
       type: Object,
       required: true,
     },
+    disabled:{
+      type: Boolean
+    }
   },
   data() {
     return {
