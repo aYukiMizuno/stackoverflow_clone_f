@@ -6,8 +6,8 @@
       data-toggle="tooltip"
       data-placement="bottom"
       title="いいね"
+      :disabled="!!disabled"
       @click="likeVote()"
-      v-bind:disabled="!!disabled"
     >
       <img
         v-show="votedlike"
@@ -26,8 +26,8 @@
       data-toggle="tooltip"
       data-placement="bottom"
       title="よくない"
+      :disabled="!!disabled"
       @click="dislikeVote()"
-      v-bind:disabled="!!disabled"
     >
       <img
         v-show="voteddislike"
@@ -54,9 +54,9 @@ export default {
       type: Object,
       required: true,
     },
-    disabled:{
-      type: Boolean
-    }
+    disabled: {
+      type: Boolean,
+    },
   },
   data() {
     return {
