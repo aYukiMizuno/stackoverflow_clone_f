@@ -24,7 +24,7 @@
             id="email2"
             v-model="email"
             type="email"
-            class="form-control mb-2 mr-sm-2"
+            class="email-edit form-control mb-2 mr-sm-2"
             placeholder="Enter email"
             name="email"
             required
@@ -48,7 +48,7 @@
             id="pwd2"
             v-model="password"
             type="password"
-            class="form-control mb-2 mr-sm-2"
+            class="password-edit form-control mb-2 mr-sm-2"
             placeholder="Enter password"
             minlength="8"
             name="pswd"

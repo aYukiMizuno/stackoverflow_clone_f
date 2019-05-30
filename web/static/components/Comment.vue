@@ -71,9 +71,10 @@
 
 <script>
 import PostInfo from '@/components/PostInfo';
+
 export default {
   name: 'Comment',
-  components:{
+  components: {
     PostInfo,
   },
   props: {

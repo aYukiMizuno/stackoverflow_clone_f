@@ -47,12 +47,12 @@ describe('Question', function () {
     assert(wrapper.find('.question-body').text().includes(question.body));
   });
 
-  it('renders comment form', () => {
-    const wrapper = shallowMount(Question, {
-      store,
-      router,
-      propsData: { question },
-    });
-    assert(wrapper.contains('#form-commentQuestionInput'));
-  });
+  // it('renders comment form', () => {
+  //   const wrapper = shallowMount(Question, {
+  //     store,
+  //     router,
+  //     propsData: { question },
+  //   });
+  //   assert(wrapper.contains('#form-commentQuestionInput'));
+  // });
 });
