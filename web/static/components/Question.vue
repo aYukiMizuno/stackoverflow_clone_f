@@ -17,10 +17,9 @@
       </div>
       <div v-else>
         <h2
-          class="text"
+          class="question-title"
           style="margin-block-end: 0em;"
         >
-          <!-- TODO: デザインをなんとかする -->
           {{ question.title }}
         </h2>
       </div>
@@ -90,8 +89,8 @@
                 />
               </a>
             </button>
-            <p class="cell questionbody">
-              {{ question.body }}
+            <p class="cell question-body">
+              <pre style="font-family: inherit;">{{ question.body }}</pre>
             </p>
           </div>
         </div>
@@ -225,7 +224,7 @@ export default {
 p {
     word-spacing: 0.06em;
 }
-.text {
+.question-title {
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;
@@ -234,13 +233,12 @@ p {
     font-size:8mm;
 }
 
-.questionbody{
+.question-body{
   display: block;
   font-size:5mm;
   margin-top: 3mm;
   margin-left:3mm;
   margin-bottom:3mm;
-  white-space: pre-wrap;
 }
 
 .div_float {
